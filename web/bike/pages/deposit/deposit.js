@@ -1,0 +1,113 @@
+var myutil = require("../../utils/myutil.js")
+// pages/deposit/deposit.js
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+
+  deposit: function () {
+    var that = this;
+    //获取手机号
+    var phoneNum = myutil.getPhoneNum("phoneNum");
+    wx.showModal({
+      title: '提示',
+      content: '是否要充值押金',
+      success: function (res) {
+        if(res.confirm) {
+          //模拟加载的动画
+          wx.showLoading({
+            title: '充值中...',
+          });
+          //调用小程序的支付接口
+          //如果成功，向后台发送请求，然后更新用户的押金
+          wx.request({
+            url: 'http://localhost:8080/user/deposit',
+            method: 'POST',
+            data: {
+              phoneNum: phoneNum,
+              deposit: 88,
+              status: 2,
+            },
+            success: function (res) {
+              console.log(res);
+              //关闭充值中的加载对话框
+              wx.hideLoading();
+              wx.showToast({
+                //充值成功
+                title: res.data.msg,
+                duration: 2000,
+              });
+              wx.navigateTo({
+                url: '../identity/identity',
+              });
+              //更新用户的状态：交过押金后，将状态改为2
+              getApp().globalData.status = 2;
+              wx.setStorageSync('status', 2);
+            },
+          });   
+          wx.hideLoading();
+        }
+      }
+    });
+  }
+})

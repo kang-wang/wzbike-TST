@@ -1,0 +1,26 @@
+<!--pages/deposit/deposit.wxml-->
+<view class='page' xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class='page_bd'>
+    <view class='flag'> 手机绑定</view>
+    <view class='flag'> 押金充值</view>
+    <view class='flag'> 实名绑定</view>
+    <view class='flag'> 开始用车</view>
+  </view>
+
+  <view class='pledgecont'>
+    <view class='classname'>
+      <image src=''></image>
+      <text>押金(不可退)</text>
+      <text class='pull-right'>￥你看着给</text>
+    </view>
+    <view class='small'>押金不能退，退了算我输</view>
+  </view>
+
+  <view class='message'>
+    <text>自行买一辆车随便骑</text>
+  </view>
+
+  <view class='czbtn'>
+    <button type='primary' bindtap='deposit'>去充值</button>
+  </view>
+</view>  
